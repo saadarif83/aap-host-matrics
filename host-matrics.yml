@@ -34,4 +34,4 @@
       ansible.builtin.copy:
         src: "./host_metrics_report.csv"
         dest: "/tmp/host_metrics_{{ ansible_date_time.date }}.csv"
-      delegate_to: aap.home.lab
+      delegate_to: {{ lookup('env', 'CONTROLLER_HOST') }}

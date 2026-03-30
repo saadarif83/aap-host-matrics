@@ -4,25 +4,25 @@
   tasks:
     - name: Get Host Metrics from API
       ansible.builtin.uri:
-        url: "https://aap.home.lab/api/controller/v2/host_metrics/"
+        url: "https://{{ controller_host }}/api/controller/v2/host_metrics/"
         method: GET
-        user: "admin"
-        password: "Hajia786!"
+        user: "{{ api_user }}"
+        password: "{{ api_password }}"
         force_basic_auth: yes
         validate_certs: no
       register: response
 
-    - name: Look at raw data for one host
-      ansible.builtin.debug:
-        msg: "{{ response.json.results[0] }}"
-      when: response.json.results | length > 0
+   # - name: Look at raw data for one host
+   #   ansible.builtin.debug:
+   #     msg: "{{ response.json.results[0] }}"
+   #   when: response.json.results | length > 0
       
     - name: Write metrics to CSV file
       ansible.builtin.copy:
         content: |
           Hostname, Last Automated, Status
           {% for host in response.json.results %}
-          {{ host.hostname | default('N/A') }}, {{ host.last_automation | default('N/A') }}, {{ host.automated_counter | default('N/A') }}, {{ host.msg | default('N/A') }}
+          {{ host.hostname | default('N/A') }}, {{ host.last_automation | default('N/A') }}, {{ host.automated_counter | default('N/A') }}
           {% endfor %}
         dest: "./host_metrics_report.csv"
       when: response.json.results is defined

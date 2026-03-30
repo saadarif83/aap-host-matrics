@@ -17,7 +17,7 @@
         content: |
           Hostname, Last Automated, Status
           {% for host in response.json.results %}
-          {{ host.hostname | default('N/A') }}, {{ host.last_automation | default('N/A') }}, {{ host.last_automation_status | default('N/A') }}
+          {{ host.hostname | default('N/A') }}, {{ host.last_automation | default('N/A') }}, {{ host.total_automations | default('N/A') }}, {{ host.last_automation_status | default('N/A') }}
           {% endfor %}
         dest: "./host_metrics_report.csv"
       when: response.json.results is defined

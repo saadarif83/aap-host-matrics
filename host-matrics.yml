@@ -1,0 +1,22 @@
+- name: Export Host Metrics to CSV
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Get Host Metrics from API
+      ansible.builtin.uri:
+        url: "https://{{ controller_host }}/api/v2/host_metrics/"
+        method: GET
+        user: "{{ username }}"
+        password: "{{ password }}"
+        force_basic_auth: yes
+        validate_certs: no
+      register: response
+
+    - name: Write metrics to CSV file
+      ansible.builtin.copy:
+        content: |
+          Hostname, Last Automated, Status
+          {% for host in response.json.results %}
+          {{ host.hostname }}, {{ host.last_automation }}, {{ host.automated_status }}
+          {% endfor %}
+        dest: "./host_metrics_export.csv"

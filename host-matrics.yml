@@ -6,6 +6,8 @@
       ansible.builtin.uri:
         url: "https://aap.home.lab/api/controller/v2/host_metrics/"
         method: GET
+        user: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
+        password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
        # user: "admin"
        # password: "Hajia786!"
         force_basic_auth: yes

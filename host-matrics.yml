@@ -4,7 +4,7 @@
   tasks:
     - name: Get Host Metrics from API
       ansible.builtin.uri:
-        url: "https://aap.home.lab/api/v2/host_metrics/"
+        url: "https://aap.home.lab/api/v2/analytics/host_metrics/"
         method: GET
         user: "admin"
         password: "Hajia786!"

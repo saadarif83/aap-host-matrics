@@ -4,10 +4,10 @@
   tasks:
     - name: Get Host Metrics from API
       ansible.builtin.uri:
-        url: "https://{{ controller_host }}/api/v2/host_metrics/"
+        url: "https://aap.home.lab/api/v2/host_metrics/"
         method: GET
-        user: "{{ username }}"
-        password: "{{ password }}"
+        user: "admin"
+        password: "Hajia786!"
         force_basic_auth: yes
         validate_certs: no
       register: response

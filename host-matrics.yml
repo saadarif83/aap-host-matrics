@@ -5,20 +5,12 @@
     - name: Get Host Metrics from API
       ansible.builtin.uri:
         url: "https://{{ lookup('env', 'CONTROLLER_HOST') }}/api/controller/v2/host_metrics/"
-        # url: "https://aap.home.lab/api/controller/v2/host_metrics/"
         method: GET
         user: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
         password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
-        #user: "admin"
-        #password: "Hajia786!"
         force_basic_auth: yes
         validate_certs: no
       register: response
-
-   # - name: Look at raw data for one host
-   #   ansible.builtin.debug:
-   #     msg: "{{ response.json.results[0] }}"
-   #   when: response.json.results | length > 0
       
     - name: Write metrics to CSV file
       ansible.builtin.copy:

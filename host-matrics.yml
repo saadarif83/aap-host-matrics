@@ -21,3 +21,9 @@
           {% endfor %}
         dest: "./host_metrics_report.csv"
       when: response.json.results is defined
+      
+    - name: Ship CSV to a permanent server
+      ansible.builtin.copy:
+        src: "./host_metrics_report.csv"
+        dest: "/tmp/host_metrics_{{ ansible_date_time.date }}.csv"
+      delegate_to: your_storage_server_name

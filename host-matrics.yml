@@ -12,6 +12,11 @@
         validate_certs: no
       register: response
 
+    - name: Look at raw data for one host
+      ansible.builtin.debug:
+        msg: "{{ response.json.results[0] }}"
+      when: response.json.results | length > 0
+      
     - name: Write metrics to CSV file
       ansible.builtin.copy:
         content: |

@@ -4,7 +4,7 @@
   tasks:
     - name: Get Host Metrics from API
       ansible.builtin.uri:
-        url: "http://{{ lookup('env', 'CONTROLLER_HOST') }}/api/controller/v2/host_metrics/"
+        url: "https://{{ lookup('env', 'CONTROLLER_HOST') }}/api/controller/v2/host_metrics/"
         method: GET
         user: "{{ lookup('env', 'CONTROLLER_USERNAME') }}"
         password: "{{ lookup('env', 'CONTROLLER_PASSWORD') }}"
